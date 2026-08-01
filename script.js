@@ -80,7 +80,20 @@ window.addEventListener("scroll", () => {
     }
   });
 });
+//download
+// Baixar CV em PDF (arquivo real do repositório)
+const downloadCvBtn = document.getElementById("download-cv");
 
+if (downloadCvBtn) {
+  downloadCvBtn.addEventListener("click", () => {
+    const link = document.createElement("a");
+    link.href = "curriculo-heloisa-garcia.pdf"; // ajuste para o nome exato do seu arquivo
+    link.download = "Curriculo-Heloisa-Garcia.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+}
 // Scroll Reveal Observer
 const revealElements = document.querySelectorAll(".reveal");
 const revealObserver = new IntersectionObserver((entries, observer) => {
