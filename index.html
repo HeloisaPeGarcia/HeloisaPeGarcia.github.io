@@ -10,6 +10,18 @@
   <meta name="keywords" content="DevOps, Cloud Computing, FIAP, Senac, AWS, Azure, Java, GitHub, Heloisa Garcia, Desenvolvedora de Software">
   <meta name="author" content="Heloisa Garcia">
   
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://heloisapegarcia.github.io/">
+  <meta property="og:title" content="Heloisa Garcia | Portfolio - DevOps & Cloud Developer">
+  <meta property="og:description" content="Engenharia de Software, Automação de Infraestrutura e Arquitetura Cloud. Pós-graduanda FIAP.">
+  <meta property="og:image" content="https://heloisapegarcia.github.io/Profile.pdf">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Heloisa Garcia | Portfolio - DevOps & Cloud Developer">
+  <meta name="twitter:description" content="Engenharia de Software, Automação de Infraestrutura e Arquitetura Cloud.">
+  
   <!-- FontAwesome for Premium Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   
@@ -38,11 +50,18 @@
         <a href="#hero">HELOISA<span>.GARCIA</span></a>
       </div>
       
-      <!-- Hamburger Menu for Mobile -->
-      <div class="menu-toggle" id="menu-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
+      <div class="header-right">
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Alternar modo escuro ou claro" title="Alternar tema">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        
+        <!-- Hamburger Menu for Mobile -->
+        <div class="menu-toggle" id="menu-toggle" aria-label="Abrir menu de navegação">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
       
       <nav>
@@ -74,43 +93,84 @@
           <a href="#projects" class="btn btn-primary">
             Ver Projetos <i class="fa-solid fa-arrow-right"></i>
           </a>
-          <!-- Action to print the page layout customized as a CV -->
+          <a href="Profile.pdf" download="Curriculo-Heloisa-Garcia.pdf" id="download-cv" class="btn btn-secondary">
+            <i class="fa-solid fa-file-arrow-down"></i> Baixar CV (PDF)
+          </a>
         </div>
       </div>
       
-      <!-- Premium DevOps Terminal Mockup -->
+      <!-- Premium DevOps Interactive Terminal Mockup -->
       <div class="hero-visual">
         <div class="terminal-mockup glass">
           <div class="terminal-header">
-            <span class="terminal-dot red"></span>
-            <span class="terminal-dot yellow"></span>
-            <span class="terminal-dot green"></span>
-            <span class="terminal-title">deploy-pipeline.yaml</span>
+            <div class="terminal-dots">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+            </div>
+            <div class="terminal-tabs">
+              <button class="terminal-tab active" data-tab="cicd" aria-label="Ver código CI/CD"><i class="fa-brands fa-github"></i> pipeline.yaml</button>
+              <button class="terminal-tab" data-tab="terraform" aria-label="Ver código Terraform"><i class="fa-solid fa-cloud"></i> main.tf</button>
+              <button class="terminal-tab" data-tab="docker" aria-label="Ver código Docker Compose"><i class="fa-brands fa-docker"></i> compose.yml</button>
+            </div>
           </div>
-          <div class="terminal-body">
-            <pre><code><span class="line-num">1</span><span class="key">name:</span> <span class="val">Cloud-CI-CD</span>
-<span class="line-num">2</span><span class="key">on:</span>
-<span class="line-num">3</span>  <span class="key">push:</span>
-<span class="line-num">4</span>    <span class="key">branches:</span> [<span class="val">main</span>]
-<span class="line-num">5</span>
-<span class="line-num">6</span><span class="key">jobs:</span>
-<span class="line-num">7</span>  <span class="key">deploy:</span>
-<span class="line-num">8</span>    <span class="key">runs-on:</span> <span class="val">ubuntu-latest</span>
-<span class="line-num">9</span>    <span class="key">steps:</span>
-<span class="line-num">10</span>      - <span class="key">name:</span> <span class="val">Configure AWS Credentials</span>
-<span class="line-num">11</span>        <span class="key">uses:</span> <span class="val">aws-actions/configure@v2</span>
-<span class="line-num">12</span>      - <span class="key">name:</span> <span class="val">Build and Deploy</span>
-<span class="line-num">13</span>        <span class="key">run:</span> |
-<span class="line-num">14</span>          <span class="comment"># Status: Automação Ativa</span>
-<span class="line-num">15</span>          docker build -t heloisa-app .
-<span class="line-num">16</span>          docker tag heloisa-app ecr/app:latest
-<span class="line-num">17</span>          docker push ecr/app:latest
-<span class="line-num">18</span>          echo <span class="string">"🚀 DevOps deploy complete!"</span></code></pre>
+          <div class="terminal-body" id="terminal-body">
+            <!-- Code content loaded dynamically via JavaScript -->
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- DEVOPS LIVE STATUS MONITOR WIDGET -->
+  <div class="status-widget-container container">
+    <div class="status-widget glass">
+      <div class="status-header">
+        <span class="pulse-dot"></span>
+        <span class="status-title">DevOps Infrastructure Live Monitor</span>
+      </div>
+      <div class="status-items">
+        <div class="status-item">
+          <i class="fa-brands fa-aws" style="color: #ff9900;"></i>
+          <span>AWS Cloud: <strong class="status-ok">Operational</strong></span>
+        </div>
+        <div class="status-item">
+          <i class="fa-brands fa-github"></i>
+          <span>GitHub Actions: <strong class="status-ok">Passing (100%)</strong></span>
+        </div>
+        <div class="status-item">
+          <i class="fa-brands fa-docker" style="color: #0db7ed;"></i>
+          <span>Docker Registry: <strong class="status-ok">Healthy</strong></span>
+        </div>
+        <div class="status-item">
+          <i class="fa-solid fa-bolt" style="color: #27c93f;"></i>
+          <span>System Uptime: <strong class="status-ok">99.99%</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS COUNTER BAR -->
+  <div class="stats-bar-container container">
+    <div class="stats-grid">
+      <div class="stat-card glass">
+        <div class="stat-number" data-target="2">0</div>
+        <div class="stat-label">Anos de Foco em TI</div>
+      </div>
+      <div class="stat-card glass">
+        <div class="stat-number" data-target="100">0</div>
+        <div class="stat-label">% Código no GitHub</div>
+      </div>
+      <div class="stat-card glass">
+        <div class="stat-number" data-target="2">0</div>
+        <div class="stat-label">Instituições de Ensino</div>
+      </div>
+      <div class="stat-card glass">
+        <div class="stat-number" data-target="10">0</div>
+        <div class="stat-label">Projetos & Versões</div>
+      </div>
+    </div>
+  </div>
 
   <!-- ABOUT / RESUMO SECTION -->
   <section id="about" class="reveal">
@@ -124,6 +184,28 @@
           <p>
             Atualmente, estou me aprofundando em arquitetura em nuvem na FIAP, aplicando conceitos teóricos a desafios práticos de automação e infraestrutura como código (IaC). Tenho experiência hands-on em controle de versionamento, modelagem de banco de dados relacionais e desenvolvimento backend.
           </p>
+          
+          <!-- Identity Badge 3D Card -->
+          <div class="identity-card-wrapper">
+            <div class="identity-card glass tilt-card">
+              <div class="badge-chip"></div>
+              <div class="badge-header">
+                <i class="fa-solid fa-id-badge badge-icon"></i>
+                <span class="badge-system">SYS.ID // HELOISA GARCIA</span>
+              </div>
+              <div class="badge-info">
+                <h3>Heloisa Garcia</h3>
+                <p class="badge-role">DevOps & Cloud Developer</p>
+                <div class="badge-status">
+                  <span class="pulse-dot"></span> Active Credentials
+                </div>
+              </div>
+              <div class="badge-footer">
+                <span>FIAP Cloud Architecture</span>
+                <span class="badge-code">ACCESS: GRANTED</span>
+              </div>
+            </div>
+          </div>
         </div>
         
         <div class="about-highlights">
@@ -361,13 +443,25 @@
               <div class="edu-inst">Centro Universitário Senac</div>
             </div>
             
-            <div class="edu-card glass">
+            <div class="edu-card glass cert-card-badge">
               <div class="edu-icon"><i class="fa-solid fa-certificate"></i></div>
-              <span class="edu-period">Concluído</span>
+              <span class="edu-period">Concluído & Verificado</span>
               <h4>Certificações & Extensões</h4>
-              <div class="edu-inst" style="font-weight: 400; font-size: 0.95rem;">
-                • <strong>DevOps:</strong> Trabalhando com repositórios no GitHub (Alura)<br>
-                • <strong>IA:</strong> Extensão Universitária em Criação de Assistentes Virtuais (Senac Brasil)
+              <div class="cert-badges-grid">
+                <div class="cert-badge-item" onclick="openCertModal('DevOps: Repositórios no GitHub', 'Treinamento prático Alura cobrindo estratégias de Branching (GitFlow), versionamento de código, tags de release e integração com GitHub.')">
+                  <i class="fa-brands fa-github cert-icon"></i>
+                  <div class="cert-info">
+                    <strong>DevOps & GitHub</strong>
+                    <span>Alura • Ver Credencial</span>
+                  </div>
+                </div>
+                <div class="cert-badge-item" onclick="openCertModal('Criação de Assistentes Virtuais (IA)', 'Extensão Universitária no Senac Brasil focada em arquitetura de bots, modelos de linguagem e integração de APIs de inteligência artificial.')">
+                  <i class="fa-solid fa-robot cert-icon"></i>
+                  <div class="cert-info">
+                    <strong>IA & Assistentes Virtuais</strong>
+                    <span>Senac Brasil • Ver Credencial</span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -530,13 +624,25 @@
     </div>
   </div>
 
+  <!-- CERTIFICATE LIGHTBOX MODAL -->
+  <div class="modal-overlay" id="cert-modal">
+    <div class="modal-card glass">
+      <div class="modal-icon"><i class="fa-solid fa-award"></i></div>
+      <h3 id="cert-title" style="font-size: 1.4rem; margin-bottom: 0.5rem; color: var(--text-main);">Certificado</h3>
+      <p id="cert-desc" style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.8rem; line-height: 1.6;"></p>
+      <button onclick="closeCertModal()" class="btn btn-primary" style="display: block; margin: 0 auto; padding: 0.6rem 2rem;">
+        Fechar
+      </button>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer>
     <div class="container footer-content">
       <div class="footer-socials">
-        <a href="https://www.linkedin.com/in/heloisa-pgarcia" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
-        <a href="https://github.com/HeloisaPeGarcia" target="_blank" class="social-icon"><i class="fa-brands fa-github"></i></a>
-        <a href="mailto:heloisa.design.99freelas@gmail.com" class="social-icon"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/heloisa-pgarcia" target="_blank" class="social-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://github.com/HeloisaPeGarcia" target="_blank" class="social-icon" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="mailto:heloisa.design.99freelas@gmail.com" class="social-icon" aria-label="E-mail"><i class="fa-solid fa-envelope"></i></a>
       </div>
       <div class="footer-copy">
         &copy; <span id="footer-year">2026</span> Heloisa Garcia. Desenvolvido com <i class="fa-solid fa-heart" style="color: #ff4a5a; font-size: 0.8rem;"></i> e Vanilla CSS.

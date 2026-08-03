@@ -30,6 +30,153 @@
   --transition-fast: all 0.15s ease;
 }
 
+/* CSS Dark Mode Variables Override */
+body.dark-mode {
+  --bg-color: #0d1117;
+  --bg-card: #161b22;
+  --bg-card-hover: #21262d;
+  --border-color: #30363d;
+  --border-hover: #58a6ff;
+  
+  --primary-color: #58a6ff;
+  --accent-blue: #58a6ff;
+  --accent-green: #238636;
+  --accent-green-hover: #2ea043;
+  
+  --text-main: #f0f6fc;
+  --text-muted: #8b949e;
+  --text-inverse: #0d1117;
+  
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-button: 0 1px 0 rgba(240, 246, 252, 0.1);
+  background-image: radial-gradient(#30363d 1px, transparent 1px);
+}
+
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
+  color: #f0f6fc;
+}
+
+body.dark-mode header.scrolled {
+  background: rgba(13, 17, 23, 0.85);
+}
+
+body.dark-mode .btn-nav {
+  background: #21262d;
+  color: #f0f6fc !important;
+}
+
+body.dark-mode .btn-secondary {
+  background: #21262d;
+  color: #f0f6fc;
+  border-color: #30363d;
+}
+
+body.dark-mode .btn-secondary:hover {
+  background: #30363d;
+  border-color: #58a6ff;
+}
+
+body.dark-mode .gradient-text {
+  background: linear-gradient(135deg, #58a6ff 0%, #7ee787 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Dark Mode Comprehensive Overrides */
+body.dark-mode .timeline-dot {
+  background: #161b22;
+  border-color: #58a6ff;
+}
+
+body.dark-mode .timeline-badge {
+  background: rgba(56, 139, 253, 0.15);
+  color: #58a6ff;
+  border-color: rgba(56, 139, 253, 0.4);
+}
+
+body.dark-mode .skill-bar-wrapper {
+  background: #21262d;
+}
+
+body.dark-mode .filter-btn {
+  background: #21262d;
+  color: #8b949e;
+  border-color: #30363d;
+}
+
+body.dark-mode .filter-btn:hover,
+body.dark-mode .filter-btn.active {
+  background: #30363d;
+  color: #f0f6fc;
+  border-color: #58a6ff;
+}
+
+body.dark-mode .filter-btn.active {
+  background: #58a6ff;
+  color: #0d1117;
+  border-color: #58a6ff;
+}
+
+body.dark-mode .project-tag {
+  background: #21262d;
+  color: #8b949e;
+  border-color: #30363d;
+}
+
+body.dark-mode .contact-icon-box {
+  background: rgba(56, 139, 253, 0.15);
+  color: #58a6ff;
+  border-color: rgba(56, 139, 253, 0.4);
+}
+
+body.dark-mode .contact-method-card:hover .contact-icon-box {
+  background: #58a6ff;
+  color: #0d1117;
+  border-color: #58a6ff;
+}
+
+body.dark-mode .form-control {
+  background: #0d1117;
+  color: #f0f6fc;
+  border-color: #30363d;
+}
+
+body.dark-mode .form-control:focus {
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
+}
+
+body.dark-mode footer {
+  background-color: #0d1117;
+  border-top-color: #30363d;
+}
+
+body.dark-mode .social-icon {
+  background: #21262d;
+  color: #f0f6fc;
+  border-color: #30363d;
+}
+
+body.dark-mode .social-icon:hover {
+  background: #30363d;
+  border-color: #58a6ff;
+  color: #58a6ff;
+}
+
+body.dark-mode .modal-card {
+  background: #161b22;
+  border-color: #30363d;
+  color: #f0f6fc;
+}
+
+@media (max-width: 768px) {
+  body.dark-mode nav ul {
+    background: #161b22;
+    border-left-color: #30363d;
+  }
+}
+
 /* Global Reset & Base Styling */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -39,6 +186,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 90px;
 }
 
 body {
@@ -199,6 +347,34 @@ nav a.active::after {
 .btn-nav:hover {
   background: #f3f4f6;
   border-color: #85b8ff;
+}
+
+/* Header Right Actions */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.theme-toggle-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-button);
+  transition: var(--transition-smooth);
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  transform: rotate(15deg);
 }
 
 /* Hamburger Menu for Mobile */
@@ -372,11 +548,19 @@ section {
 
 .terminal-header {
   background: #161b22;
-  padding: 0.5rem 0.8rem;
+  padding: 0.4rem 0.7rem;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
   border-bottom: 1px solid #21262d;
+  overflow-x: auto;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .terminal-dot {
@@ -390,12 +574,39 @@ section {
 .terminal-dot.yellow { background: #ffbd2e; }
 .terminal-dot.green { background: #27c93f; }
 
-.terminal-title {
-  color: #8b949e;
-  font-size: 0.7rem;
+.terminal-tabs {
+  display: flex;
+  gap: 4px;
   margin-left: auto;
-  margin-right: auto;
-  font-weight: 500;
+  overflow-x: auto;
+}
+
+.terminal-tab {
+  background: transparent;
+  border: none;
+  color: #8b949e;
+  font-size: 0.72rem;
+  padding: 4px 8px;
+  border-radius: 4px 4px 0 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: inherit;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+
+.terminal-tab:hover {
+  color: #c9d1d9;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.terminal-tab.active {
+  color: #58a6ff;
+  background: #0d1117;
+  font-weight: 600;
+  border-bottom: 2px solid #58a6ff;
 }
 
 .terminal-body {
@@ -1303,4 +1514,300 @@ footer {
   .contact-icon-box {
     display: none !important;
   }
+}
+
+/* ------------------------------------------------------------- */
+/* 1. DEVOPS LIVE STATUS MONITOR WIDGET & PULSE DOT */
+/* ------------------------------------------------------------- */
+.status-widget-container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.status-widget {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  background: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.status-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pulse-dot {
+  width: 9px;
+  height: 9px;
+  background-color: #27c93f;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 0 rgba(39, 201, 63, 0.7);
+  animation: pulse-ring 1.8s infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(39, 201, 63, 0.7);
+  }
+  70% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 8px rgba(39, 201, 63, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(39, 201, 63, 0);
+  }
+}
+
+.status-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: var(--text-main);
+  background: rgba(0, 0, 0, 0.02);
+  padding: 0.6rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .status-item {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.status-ok {
+  color: #27c93f;
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------- */
+/* 2. STATS COUNTER BAR */
+/* ------------------------------------------------------------- */
+.stats-bar-container {
+  margin-bottom: 4rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+.stat-card {
+  padding: 1.5rem;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.stat-number {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--accent-blue);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------- */
+/* 3. CRACHÁ VIRTUAL 3D (DEVOPS IDENTITY CARD) */
+/* ------------------------------------------------------------- */
+.identity-card-wrapper {
+  margin-top: 2rem;
+  perspective: 1000px;
+}
+
+.identity-card {
+  position: relative;
+  padding: 1.5rem;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(9, 105, 218, 0.05) 100%);
+  border: 1px solid var(--border-color);
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.identity-card:hover {
+  box-shadow: 0 15px 30px rgba(9, 105, 218, 0.18);
+  border-color: var(--accent-blue);
+}
+
+.badge-chip {
+  width: 32px;
+  height: 24px;
+  background: linear-gradient(135deg, #ffd700, #ffa500);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.badge-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.badge-icon {
+  font-size: 1rem;
+  color: var(--accent-blue);
+}
+
+.badge-info h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.2rem;
+}
+
+.badge-role {
+  color: var(--accent-blue);
+  font-weight: 600;
+  font-size: 0.88rem;
+  margin-bottom: 0.8rem;
+}
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  background: rgba(39, 201, 63, 0.1);
+  color: #27c93f;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.badge-footer {
+  margin-top: 1.2rem;
+  padding-top: 0.8rem;
+  border-top: 1px dashed var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.badge-code {
+  color: var(--accent-blue);
+  font-family: monospace;
+}
+
+/* ------------------------------------------------------------- */
+/* 4. GRID VISUAL DE CERTIFICADOS COM BADGES */
+/* ------------------------------------------------------------- */
+.cert-badges-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.cert-badge-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.8rem;
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+body.dark-mode .cert-badge-item {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cert-badge-item:hover {
+  border-color: var(--accent-blue);
+  transform: translateX(4px);
+  background: rgba(9, 105, 218, 0.05);
+}
+
+.cert-icon {
+  font-size: 1.5rem;
+  color: var(--accent-blue);
+}
+
+.cert-info strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.cert-info span {
+  font-size: 0.78rem;
+  color: var(--accent-blue);
+}
+
+/* ------------------------------------------------------------- */
+/* 5. BOTÃO FLUTUANTE DE CONTATO (FLOATING ACTION BUTTON) */
+/* ------------------------------------------------------------- */
+.floating-contact-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 52px;
+  height: 52px;
+  background: #25d366;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  z-index: 999;
+  transition: var(--transition-smooth);
+}
+
+.floating-contact-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+  color: #ffffff;
+}
+
+.floating-tooltip {
+  position: absolute;
+  right: 64px;
+  background: #1f2328;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition-fast);
+}
+
+.floating-contact-btn:hover .floating-tooltip {
+  opacity: 1;
 }
