@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Heloisa Garcia — macOS Portfolio Concept</title>
+<meta name="description" content="Protótipo interativo: portfolio de Heloisa Garcia simulando um desktop macOS, totalmente navegável.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ DESKTOP (desktop/tablet only) ============ -->
+<div class="desktop" id="desktop">
+
+  <div class="wallpaper"></div>
+
+  <!-- Menu Bar -->
+  <div class="menubar">
+    <div class="menubar-left">
+      <button class="apple-btn" id="apple-menu-btn" aria-label="Menu Apple">
+        <svg viewBox="0 0 64 64" width="15" height="15">
+          <rect x="16" y="14" width="7" height="36" rx="3.5" fill="currentColor"/>
+          <rect x="41" y="14" width="7" height="36" rx="3.5" fill="currentColor"/>
+          <polygon points="23,28 41,22 41,36 23,42" fill="currentColor"/>
+        </svg>
+      </button>
+      <span class="active-app-name" id="active-app-name">Finder</span>
+      <span class="menu-item">Arquivo</span>
+      <span class="menu-item">Editar</span>
+      <span class="menu-item">Visualizar</span>
+      <span class="menu-item">Janela</span>
+      <span class="menu-item">Ajuda</span>
+    </div>
+    <div class="menubar-right">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-three-quarters"></i>
+      <span id="clock">--:--</span>
+    </div>
+
+    <!-- Apple dropdown -->
+    <div class="apple-dropdown" id="apple-dropdown">
+      <div class="dropdown-item" data-open="about-mac"><i class="fa-solid fa-circle-info"></i> Sobre Este Mac</div>
+      <div class="dropdown-sep"></div>
+      <div class="dropdown-item" data-action="open-real-site"><i class="fa-solid fa-arrow-up-right-from-square"></i> Abrir site tradicional</div>
+      <div class="dropdown-item" data-action="toggle-theme"><i class="fa-solid fa-circle-half-stroke"></i> Alternar Aparência</div>
+    </div>
+  </div>
+
+  <!-- Desktop icons -->
+  <div class="desktop-icons">
+    <div class="desktop-icon" data-open="finder">
+      <div class="dicon-glyph"><i class="fa-solid fa-folder"></i></div>
+      <span>Projetos</span>
+    </div>
+    <div class="desktop-icon" data-href="../Profile.pdf">
+      <div class="dicon-glyph"><i class="fa-solid fa-file-pdf"></i></div>
+      <span>Currículo.pdf</span>
+    </div>
+    <div class="desktop-icon" data-open="trash">
+      <div class="dicon-glyph"><i class="fa-solid fa-trash-can"></i></div>
+      <span>Lixeira</span>
+    </div>
+  </div>
+
+  <!-- Windows mount here -->
+  <div id="windows-container"></div>
+
+  <!-- Dock -->
+  <div class="dock-wrap">
+    <div class="dock">
+      <div class="dock-item" data-open="finder" data-label="Finder">
+        <div class="dock-icon dock-finder"><i class="fa-solid fa-folder-open"></i></div>
+        <span class="dock-dot"></span>
+      </div>
+      <div class="dock-item" data-open="terminal" data-label="Terminal">
+        <div class="dock-icon dock-terminal"><i class="fa-solid fa-terminal"></i></div>
+        <span class="dock-dot"></span>
+      </div>
+      <div class="dock-item" data-open="notes" data-label="Notas">
+        <div class="dock-icon dock-notes"><i class="fa-solid fa-note-sticky"></i></div>
+        <span class="dock-dot"></span>
+      </div>
+      <div class="dock-item" data-open="mail" data-label="Mail">
+        <div class="dock-icon dock-mail"><i class="fa-solid fa-envelope"></i></div>
+        <span class="dock-dot"></span>
+      </div>
+      <div class="dock-item" data-open="safari" data-label="Safari">
+        <div class="dock-icon dock-safari"><i class="fa-solid fa-compass"></i></div>
+        <span class="dock-dot"></span>
+      </div>
+      <div class="dock-sep"></div>
+      <div class="dock-item" data-open="trash" data-label="Lixeira">
+        <div class="dock-icon dock-trash"><i class="fa-solid fa-trash-can"></i></div>
+        <span class="dock-dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Boot hint -->
+  <div class="boot-hint" id="boot-hint">
+    <i class="fa-solid fa-arrow-down"></i> clique nos ícones do dock pra navegar
+  </div>
+</div>
+
+<!-- ============ APP CONTENT TEMPLATES (moved into windows by JS) ============ -->
+<template id="tpl-finder">
+  <div class="finder-app">
+    <div class="finder-sidebar">
+      <div class="finder-section-label">Favoritos</div>
+      <div class="finder-sidebar-item active" data-filter="all"><i class="fa-solid fa-laptop-code"></i> Todos os Projetos</div>
+      <div class="finder-sidebar-item" data-filter="devops"><i class="fa-solid fa-gears"></i> DevOps</div>
+      <div class="finder-sidebar-item" data-filter="cloud"><i class="fa-solid fa-cloud"></i> Cloud</div>
+      <div class="finder-sidebar-item" data-filter="backend"><i class="fa-solid fa-cubes"></i> Backend</div>
+      <div class="finder-section-label">Tags</div>
+      <div class="finder-sidebar-item"><span class="tag-dot" style="background:var(--petrol)"></span> Repositórios reais do GitHub</div>
+    </div>
+    <div class="finder-main">
+      <div class="finder-toolbar">
+        <span id="finder-path">Projetos</span>
+        <span class="finder-count" id="finder-count"></span>
+      </div>
+      <div class="finder-grid" id="finder-grid">
+        <div class="finder-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Carregando repositórios reais do GitHub…</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-project-detail">
+  <div class="project-detail">
+    <button class="back-btn" id="project-back"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+    <div class="project-detail-icon"><i class="fa-solid fa-cube"></i></div>
+    <h2 id="pd-name">—</h2>
+    <p id="pd-desc">—</p>
+    <div class="pd-tags" id="pd-tags"></div>
+    <div class="pd-stats" id="pd-stats"></div>
+    <a href="#" target="_blank" class="btn-open-github" id="pd-link">Abrir no GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+  </div>
+</template>
+
+<template id="tpl-terminal">
+  <div class="terminal-app">
+    <div class="terminal-output" id="term-output"></div>
+    <div class="terminal-input-line">
+      <span class="term-prompt">heloisa@portfolio:~$</span>
+      <input type="text" id="term-input" class="term-input" autocomplete="off" spellcheck="false" autocapitalize="off">
+    </div>
+  </div>
+</template>
+
+<template id="tpl-notes">
+  <div class="notes-app">
+    <div class="notes-sidebar">
+      <div class="note-item active" data-note="sobre">
+        <strong>Sobre Mim</strong>
+        <span>Quem eu sou, resumidamente</span>
+      </div>
+      <div class="note-item" data-note="disponibilidade">
+        <strong>Disponibilidade</strong>
+        <span>Remoto / híbrido</span>
+      </div>
+      <div class="note-item" data-note="stack">
+        <strong>Stack Atual</strong>
+        <span>O que uso no dia a dia</span>
+      </div>
+    </div>
+    <div class="notes-paper" id="notes-paper"></div>
+  </div>
+</template>
+
+<template id="tpl-mail">
+  <div class="mail-app">
+    <div class="mail-header-fields">
+      <div class="mail-field"><label>Para:</label><span>heloisa.design.99freelas@gmail.com</span></div>
+      <div class="mail-field"><label>Assunto:</label><input type="text" id="mail-subject" value="Oportunidade via Portfolio"></div>
+    </div>
+    <form id="mail-form">
+      <div class="mail-field-stack">
+        <input type="text" id="mail-name" placeholder="Seu nome" required>
+        <input type="email" id="mail-email" placeholder="Seu e-mail" required>
+      </div>
+      <textarea id="mail-body" placeholder="Olá Heloisa, gostaria de conversar sobre uma oportunidade..." required></textarea>
+      <button type="submit" class="mail-send-btn"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
+      <div class="mail-status" id="mail-status"></div>
+    </form>
+  </div>
+</template>
+
+<template id="tpl-safari">
+  <div class="safari-app">
+    <div class="safari-toolbar">
+      <div class="safari-tabs">
+        <div class="safari-tab active" data-site="linkedin"><i class="fa-brands fa-linkedin"></i> LinkedIn</div>
+        <div class="safari-tab" data-site="github"><i class="fa-brands fa-github"></i> GitHub</div>
+      </div>
+      <div class="safari-address-bar"><i class="fa-solid fa-lock"></i> <span id="safari-url">linkedin.com/in/heloisa-pgarcia</span></div>
+    </div>
+    <div class="safari-content" id="safari-content"></div>
+  </div>
+</template>
+
+<template id="tpl-about-mac">
+  <div class="about-mac-app">
+    <div class="am-icon">
+      <svg viewBox="0 0 64 64" width="56" height="56">
+        <rect x="16" y="14" width="7" height="36" rx="3.5" fill="#7fb8c9"/>
+        <rect x="41" y="14" width="7" height="36" rx="3.5" fill="#7fb8c9"/>
+        <polygon points="23,28 41,22 41,36 23,42" fill="#ff7a59"/>
+      </svg>
+    </div>
+    <h2>heloisaOS</h2>
+    <div class="am-version">Versão Portfolio 2.0 — build <span id="am-date"></span></div>
+    <table class="am-table">
+      <tr><td>Desenvolvedora</td><td>Heloisa Garcia</td></tr>
+      <tr><td>Chip</td><td>Café Ultra™ (8 xícaras/dia)</td></tr>
+      <tr><td>Memória</td><td>Conhecimento ilimitado (em expansão)</td></tr>
+      <tr><td>Armazenamento</td><td>heloisapegarcia.github.io</td></tr>
+      <tr><td>Status</td><td><span class="am-status-dot"></span> Disponível para oportunidades</td></tr>
+    </table>
+  </div>
+</template>
+
+<template id="tpl-trash">
+  <div class="trash-app">
+    <i class="fa-regular fa-trash-can"></i>
+    <p>A lixeira está vazia.</p>
+    <span>Nenhum bug foi encontrado aqui. Ainda.</span>
+  </div>
+</template>
+
+<!-- ============ MOBILE FALLBACK ============ -->
+<div class="mobile-fallback" id="mobile-fallback">
+  <header class="mf-header">
+    <div class="mf-logo">Heloisa<span>.Garcia</span></div>
+    <a href="../index.html" class="mf-link-full">Ver site completo</a>
+  </header>
+
+  <section class="mf-hero">
+    <div class="mf-badge">💻 Experiência desktop disponível no computador</div>
+    <h1>Heloisa Garcia</h1>
+    <p>Software Developer · DevOps & Cloud Architect</p>
+  </section>
+
+  <section class="mf-section">
+    <h2>Sobre</h2>
+    <p>Graduada em Análise e Desenvolvimento de Sistemas, hoje aprofundando em DevOps e Arquitetura Cloud na FIAP. Foco em automatizar ciclos de entrega, otimizar pipelines de CI/CD e gerenciar ambientes resilientes na nuvem.</p>
+  </section>
+
+  <section class="mf-section">
+    <h2>Competências</h2>
+    <div class="mf-chips" id="mf-chips"></div>
+  </section>
+
+  <section class="mf-section">
+    <h2>Projetos</h2>
+    <div class="mf-projects" id="mf-projects">
+      <div class="mf-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Carregando…</div>
+    </div>
+  </section>
+
+  <section class="mf-section">
+    <h2>Contato</h2>
+    <form id="mf-form" class="mf-form">
+      <input type="text" id="mf-name" placeholder="Seu nome" required>
+      <input type="email" id="mf-email" placeholder="Seu e-mail" required>
+      <textarea id="mf-msg" placeholder="Mensagem" required></textarea>
+      <button type="submit">Enviar mensagem</button>
+      <div class="mf-status" id="mf-status"></div>
+    </form>
+    <div class="mf-socials">
+      <a href="https://www.linkedin.com/in/heloisa-pgarcia" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="https://github.com/HeloisaPeGarcia" target="_blank"><i class="fa-brands fa-github"></i></a>
+      <a href="mailto:heloisa.design.99freelas@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+    </div>
+  </section>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
